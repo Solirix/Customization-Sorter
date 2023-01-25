@@ -1,6 +1,10 @@
 #include <iostream>
+#include "object.h"
 
 int main(void) {
-    std::cout << "fupa";
+    object test(1, "i", "s");
+
+    std::cout << test.itemNum;
+
     return 0;
 }
