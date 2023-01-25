@@ -8,7 +8,7 @@
 #include <vector>
 
 int main(void) {
-
+    
     std::vector<std::string> youthxs1;
     std::vector<std::string> youthxs2;
     std::vector<std::string> youthxs3;
