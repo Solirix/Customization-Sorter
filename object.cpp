@@ -1,13 +1,16 @@
 #include "object.h"
 
+//default constructor
 object::object() {
     itemNum = 0;
     size = "";
     customerName = "";
 }
 
-object::object(int itemNumm, std::string sizee, std::string customerNamee) {
-    itemNum = itemNumm;
-    size = sizee;
-    customerName = customerNamee;
+//specific constructor
+object::object(int itemNum, std::string size, std::string customerName) {
+    //set var in class (this) equal to val being passed in
+    this -> itemNum = itemNum;
+    this -> size = size;
+    this -> customerName = customerName;
 }
