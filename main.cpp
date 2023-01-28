@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
-#include "object.h"
+#include "object.hpp"
 
 void getUserInput(int &itemType, std::string &size, std::string &customerName);
 void wantToContinue(char &runOption);
