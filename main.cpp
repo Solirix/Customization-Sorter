@@ -1,12 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <map>
 #include "object.h"
 
 void getUserInput(int &itemType, std::string &size, std::string &customerName);
+void wantToContinue(char &runOption);
 
 int main(void) {
-    std::vector<object> ordersList; //store orders (objects) WE NEED TO SORT THIS BY ITEM NUM TO GET THE DUB (this is 100% doable)
+    std::vector<object> ordersList; //store orders
 
     //declare necessary variables
     int itemType;
@@ -14,19 +16,26 @@ int main(void) {
 
     char runOption = 'c';
 
+
     while (runOption == 'c') {
         getUserInput(itemType, size, customerName); //get user input
         
         object order(itemType, size, customerName); //create order with users input
 
+        order.setSizeValue(size); //give size a corresponding value
+
         ordersList.push_back(order); //add order to list
 
-        std::cout << "Continue? (c/n)? \n";
-        std::cin >> runOption;
+        wantToContinue(runOption); //ask user if they want to continue
     }
 
     std::sort(ordersList.begin(), ordersList.end(), [](object a, object b) { return a.itemNum < b.itemNum; }); //sort the orders by item number ascending
                                                                                                               //(called a lambda function)
+
+                                                                                                            //SOMEHOW COMBINE THESE TWO SORTS?????
+
+    std::sort(ordersList.begin(), ordersList.end(), [](object a, object b) { return a.sizeValue < b.sizeValue; }); //sort the orders by size ascending
+                                                                                                       //(called a lambda function
     //make sure the orders are being sorted properly (which they are on my end at least)
     //my thought is we just write the vector to the file in a for loop since its already sorted 
     for (int i = 0; i < ordersList.size(); i++) {
@@ -37,8 +46,8 @@ int main(void) {
 
 
     // TESTING PURPOSES ONLY
-    std::vector<std::string> tshirtSizes = {"M", "S", "L", "XL", "XXL", "XS", "YXS", "XXXXL", "YS", "YM", "YL", "XXXL"};
-    sort(tshirtSizes.begin(), tshirtSizes.end(), tshirtSizeCompare);
+   // std::vector<std::string> tshirtSizes = {"M", "S", "L", "XL", "XXL", "XS", "YXS", "XXXXL", "YS", "YM", "YL", "XXXL"};
+   // sort(tshirtSizes.begin(), tshirtSizes.end(), tshirtSizeCompare);
 
 
     return 0; 
@@ -57,6 +66,11 @@ void getUserInput(int &itemType, std::string &size, std::string &customerName) {
     //get customer name   
     std::cout << "What is the customers name? \n";
     std::cin >> customerName;
+}
+
+void wantToContinue(char &runOption) {
+    std::cout << "Continue? (c/n)? \n";
+    std::cin >> runOption;
 }
 
 // compare sizes
