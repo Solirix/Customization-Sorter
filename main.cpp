@@ -29,13 +29,14 @@ int main(void) {
         wantToContinue(runOption); //ask user if they want to continue
     }
 
-    std::sort(ordersList.begin(), ordersList.end(), [](object a, object b) { return a.itemNum < b.itemNum; }); //sort the orders by item number ascending
-                                                                                                              //(called a lambda function)
+    //lambda function to sort the vector
+    std::sort(ordersList.begin(), ordersList.end(), [](const object &a, object &b) {
+        if (a.itemNum != b.itemNum) { //if the item numbers are different, sort by item number
+            return a.itemNum < b.itemNum;
+        }
+        return a.sizeValue < b.sizeValue; //if the item numbers are the same, sort by size
+    });
 
-                                                                                                            //SOMEHOW COMBINE THESE TWO SORTS?????
-
-    std::sort(ordersList.begin(), ordersList.end(), [](object a, object b) { return a.sizeValue < b.sizeValue; }); //sort the orders by size ascending
-                                                                                                       //(called a lambda function
     //make sure the orders are being sorted properly (which they are on my end at least)
     //my thought is we just write the vector to the file in a for loop since its already sorted 
     for (int i = 0; i < ordersList.size(); i++) {
@@ -43,11 +44,6 @@ int main(void) {
         std::cout << "Size: " << ordersList[i].size << std::endl;
         std::cout << "Customer Name: " << ordersList[i].customerName << std::endl;
     }
-
-
-    // TESTING PURPOSES ONLY
-   // std::vector<std::string> tshirtSizes = {"M", "S", "L", "XL", "XXL", "XS", "YXS", "XXXXL", "YS", "YM", "YL", "XXXL"};
-   // sort(tshirtSizes.begin(), tshirtSizes.end(), tshirtSizeCompare);
 
 
     return 0; 
